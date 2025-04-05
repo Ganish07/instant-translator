@@ -1,22 +1,34 @@
-async function translateText() {
-    const inputText = document.getElementById("input-text").value;
-    const fromLang = document.getElementById("input-lang").value;
-    const toLang = document.getElementById("output-lang").value;
+document.getElementById("translateBtn").addEventListener("click", async () => {
+  const text = document.getElementById("sourceText").value.trim();
+  const source = document.getElementById("sourceLang").value;
+  const target = document.getElementById("targetLang").value;
 
-    try {
-        const response = await fetch("https://instant-translator-xfwt.onrender.com", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                text: inputText,
-                from: fromLang,
-                to: toLang
-            })
-        });
+  if (!text) return;
 
-        const data = await response.json();
-        document.getElementById("output-text").value = data.translatedText || "Translation failed.";
-    } catch (err) {
-        document.getElementById("output-text").value = "Error connecting to server.";
-    }
+  try {
+    const res = await fetch("/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text, source, target })
+    });
+
+    const data = await res.json();
+    document.getElementById("translatedText").value = data.translatedText || "Translation failed!";
+  } catch (err) {
+    document.getElementById("translatedText").value = "Error connecting to server.";
+  }
+});
+
+async function loadFunFact() {
+  const facts = [
+    "The longest alphabet is Khmer (Cambodian), with 74 letters!",
+    "Did you know? The Bible is the most translated book in the world.",
+    "There are over 7,000 spoken languages today.",
+    "Basque is a language isolate – no known relatives!",
+    "Inuit languages have over 50 words for snow!"
+  ];
+  const randomFact = facts[Math.floor(Math.random() * facts.length)];
+  document.getElementById("funFact").textContent = randomFact;
 }
+
+window.addEventListener("load", loadFunFact);
