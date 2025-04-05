@@ -1,53 +1,45 @@
-const express = require("express");
-const axios = require("axios");
-const cors = require("cors");
-const path = require("path");
-
+const express = require('express');
+const cors = require('cors');
+const axios = require('axios');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static('public')); // for frontend files
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-// Translation endpoint
-app.post("/translate", async (req, res) => {
-  const { text, sourceLang, targetLang } = req.body;
-
-  if (!text || !sourceLang || !targetLang) {
-    return res.status(400).json({ error: "Missing translation data." });
-  }
+app.post('/translate', async (req, res) => {
+  const { text, targetLang } = req.body;
 
   try {
-    const response = await axios.post("https://libretranslate.de/translate", {
+    const response = await axios.post('https://libretranslate.com/translate', {
       q: text,
-      source: sourceLang,
+      source: 'auto',
       target: targetLang,
-      format: "text"
+      format: 'text'
+    }, {
+      headers: { 'Content-Type': 'application/json' }
     });
 
     res.json({ translatedText: response.data.translatedText });
   } catch (error) {
-    console.error("Translation error:", error.message);
-    res.status(500).json({ error: "Translation failed." });
+    console.error('Translation error:', error);
+    res.status(500).json({ error: 'Translation failed' });
   }
 });
 
-// Fun fact endpoint
-app.get("/fun-fact", async (req, res) => {
-  try {
-    const response = await axios.get("https://uselessfacts.jsph.pl/random.json?language=en");
-    res.json({ fact: response.data.text });
-  } catch (error) {
-    console.error("Fun fact error:", error.message);
-    res.status(500).json({ error: "Could not fetch fun fact." });
-  }
+app.get('/fun-fact', (req, res) => {
+  const facts = [
+    "Did you know? The word 'robot' comes from a Czech word meaning 'forced labor'.",
+    "There are over 7,000 languages in the world today.",
+    "Sign language is different in every country!",
+    "Mandarin Chinese is the most spoken language in the world.",
+    "Emoji is actually a Japanese word meaning 'picture character'."
+  ];
+  const fact = facts[Math.floor(Math.random() * facts.length)];
+  res.json({ fact });
 });
 
 app.listen(PORT, () => {
-  console.log('Server running on http://localhost:${PORT}');
+  console.log(Server running on http://localhost:${PORT});
 });
