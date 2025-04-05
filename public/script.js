@@ -4,7 +4,7 @@ async function translateText() {
     const toLang = document.getElementById("output-lang").value;
 
     try {
-        const response = await fetch("http://localhost:3000/translate", {
+        const response = await fetch("https://instant-translator-xfwt.onrender.com", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
