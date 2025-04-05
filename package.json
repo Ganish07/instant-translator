@@ -1,13 +1,15 @@
 {
   "name": "instant-translator",
   "version": "1.0.0",
+  "description": "Real-time text translation app",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
+    "axios": "^1.6.0",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "node-fetch": "^2.6.7"
+    "express": "^4.18.2"
   }
 }
