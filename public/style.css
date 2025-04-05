@@ -1,98 +1,78 @@
 body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to right, #eef2f3, #dbe9f4);
-    color: #333;
-    text-align: center;
+  font-family: "Segoe UI", sans-serif;
+  background: #f0f8ff;
+  margin: 0;
+  padding: 0;
+  color: #333;
 }
 
-header {
-    background: #0077b6;
-    color: white;
-    padding: 20px;
-    font-size: 18px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-.translation-container {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    flex-wrap: wrap;
-    margin: 30px auto;
-    max-width: 1000px;
+h1 {
+  text-align: center;
+  color: #0078d7;
+}
+
+.tagline {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.translator-box {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .box {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    width: 300px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    margin: 10px;
-    transition: transform 0.3s;
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
 }
 
-.box:hover {
-    transform: scale(1.05);
+select, textarea {
+  margin-top: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  resize: none;
 }
 
 textarea {
-    width: 100%;
-    height: 120px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    resize: none;
-    font-size: 14px;
+  height: 120px;
+  margin-top: 10px;
 }
 
-select {
-    width: 100%;
-    padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+button {
+  display: block;
+  margin: 30px auto 20px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #0078d7;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-.translate-btn {
-    background: #0077b6;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 10px;
-    transition: background 0.3s, transform 0.2s;
-    height: 50px;
+button:hover {
+  background-color: #005bb5;
 }
 
-.translate-btn:hover {
-    background: #005f91;
-    transform: scale(1.1);
-}
-
-.facts {
-    background: #ffffff;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.facts h2 {
-    color: #0077b6;
-}
-
-.facts p {
-    font-size: 16px;
-}
-
-footer {
-    background: #0077b6;
-    color: white;
-    padding: 15px;
-    margin-top: 20px;
-    font-size: 14px;
+.fun-fact {
+  text-align: center;
+  margin-top: 30px;
+  font-style: italic;
 }
