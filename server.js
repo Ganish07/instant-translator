@@ -8,19 +8,19 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public"))); // Serve static files from public
+app.use(express.static(path.join(__dirname, "public"))); // Serve static files
 
-// API route for translation
+// Translation API
 app.post("/translate", async (req, res) => {
-  const { text } = req.body;
+  const { text, from, to } = req.body;
 
   try {
     const response = await fetch("https://libretranslate.de/translate", {
       method: "POST",
       body: JSON.stringify({
         q: text,
-        source: "auto",
-        target: "hi",
+        source: from,
+        target: to,
         format: "text"
       }),
       headers: {
@@ -36,7 +36,7 @@ app.post("/translate", async (req, res) => {
   }
 });
 
-// Fallback route to serve index.html for all unmatched routes (for SPA)
+// Fallback route for SPA
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
