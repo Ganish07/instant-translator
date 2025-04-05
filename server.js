@@ -42,5 +42,5 @@ app.get("*", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(Translation server running on http://localhost:${PORT});
+  console.log('Translation server running on http://localhost:${PORT}');
 });
