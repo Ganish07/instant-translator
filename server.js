@@ -1,35 +1,46 @@
-const express = require('express');
-const cors = require('cors');
-const fetch = require('node-fetch');
-const path = require('path');
+const express = require("express");
+const cors = require("cors");
+const fetch = require("node-fetch");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from public
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public"))); // Serve static files from public
 
-// API endpoint for translation
-app.post('/translate', async (req, res) => {
+// API route for translation
+app.post("/translate", async (req, res) => {
+  const { text } = req.body;
+
   try {
-    const { text, from, to } = req.body;
+    const response = await fetch("https://libretranslate.de/translate", {
+      method: "POST",
+      body: JSON.stringify({
+        q: text,
+        source: "auto",
+        target: "hi",
+        format: "text"
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
 
-    const response = await fetch(https://api-url-here.com?text=${text}&from=${from}&to=${to});
     const data = await response.json();
-
     res.json({ translatedText: data.translatedText });
-  } catch (error) {
-    console.error('Translation failed:', error);
-    res.status(500).json({ error: 'Translation failed.' });
+  } catch (err) {
+    console.error("Translation error:", err);
+    res.status(500).json({ error: "Translation failed" });
   }
 });
 
-// Fallback: serve index.html for any unknown route (for SPA)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// Fallback route to serve index.html for all unmatched routes (for SPA)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.listen(PORT, () => {
-  console.log(Server running on http://localhost:${PORT});
+  console.log(Translation server running on http://localhost:${PORT});
 });
